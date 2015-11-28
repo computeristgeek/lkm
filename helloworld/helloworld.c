@@ -1,16 +1,17 @@
-#include <linux/init.h>
-#include <linux/kernel.h>
 #include <linux/module.h>
+#include <linux/sched.h>
 
-static int hello(void)
+static int __init hello(void)
 {
-	printk(KERN_NOTICE "Hello, World!\n");
+	printk(KERN_INFO "Hello, World!\n");
+	printk(KERN_INFO "Proc is '%s'\n",current->comm);
+	printk(KERN_INFO "PID is %i\n",current->pid);
 	return 0;
 }
 
-static void gbye(void)
+static void __exit gbye(void)
 {
-	printk(KERN_NOTICE "Goodbye, World!\n");
+	printk(KERN_INFO "Goodbye, World!\n");
 }
 
 module_init(hello);
